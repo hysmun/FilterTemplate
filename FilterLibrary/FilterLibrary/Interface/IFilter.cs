@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Filter
+namespace FilterLibrary.Interface
 {
     /// <summary>
     /// interface to implement for filter class
@@ -17,7 +17,7 @@ namespace Filter
     /// <typeparam name="T">The class used to apply filter on</typeparam>
     public interface IFilterAnd<T>
     {
-        IEnumerable<T> FiltersAnd(IEnumerable<T> list, List<ISpecification<T>> specifications);
+        IEnumerable<T> FiltersAnd(IEnumerable<T> list, IEnumerable<ISpecification<T>> specifications);
         IEnumerable<T> FiltersAnd(IEnumerable<T> list, params  ISpecification<T>[] specifications);
     }
 
@@ -27,7 +27,7 @@ namespace Filter
     /// <typeparam name="T">The class used to apply filter on</typeparam>
     public interface IFilterOr<T>
     {
-        IEnumerable<T> FiltersOr(IEnumerable<T> list, List<ISpecification<T>> specifications);
+        IEnumerable<T> FiltersOr(IEnumerable<T> list, IEnumerable<ISpecification<T>> specifications);
         IEnumerable<T> FiltersOr(IEnumerable<T> list, params  ISpecification<T>[] specifications);
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FilterLibrary.Interface;
 
-namespace Filter
+namespace FilterLibrary
 {
     /// <summary>
     /// base class for filter function on list
@@ -26,7 +27,7 @@ namespace Filter
         /// <param name="list">The list to filter</param>
         /// <param name="specifications">The specification to use</param>
         /// <returns>a sub list with item that satisfy all the specification</returns>
-        public IEnumerable<T> FiltersAnd(IEnumerable<T> list, List<ISpecification<T>> specifications)
+        public IEnumerable<T> FiltersAnd(IEnumerable<T> list, IEnumerable<ISpecification<T>> specifications)
         {
             foreach (T item in list)
             {
@@ -45,7 +46,7 @@ namespace Filter
         /// <returns>a sub list with item that satisfy all the specification</returns>
         public IEnumerable<T> FiltersAnd(IEnumerable<T> list, params ISpecification<T>[] specifications)
         {
-            List<ISpecification<T>> lSpecifications = specifications.ToList();
+            IEnumerable<ISpecification<T>> lSpecifications = specifications;
             
             return FiltersAnd(list, lSpecifications);
         }
@@ -56,11 +57,11 @@ namespace Filter
         /// <param name="list">The list to filter</param>
         /// <param name="specifications">The specification to use</param>
         /// <returns>a sub list with item that satisfy one of the specification</returns>
-        public IEnumerable<T> FiltersOr(IEnumerable<T> list, List<ISpecification<T>> specifications)
+        public IEnumerable<T> FiltersOr(IEnumerable<T> list, IEnumerable<ISpecification<T>> specifications)
         {
             foreach (T item in list)
             {
-                if (specifications.Exists(x => x.IsSatisfied(item)))
+                if (specifications.Any(x => x.IsSatisfied(item)))
                 {
                     yield return item;
                 }
@@ -75,7 +76,7 @@ namespace Filter
         /// <returns>a sub list with item that satisfy one of the specification</returns>
         public IEnumerable<T> FiltersOr(IEnumerable<T> list, params ISpecification<T>[] specifications)
         {
-            List<ISpecification<T>> lSpecifications = specifications.ToList();
+            IEnumerable<ISpecification<T>> lSpecifications = specifications;
             
             return FiltersOr(list, lSpecifications);
         }

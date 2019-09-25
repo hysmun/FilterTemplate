@@ -1,5 +1,5 @@
 ﻿
-namespace Filter
+namespace FilterLibrary.Interface
 {
     /// <summary>
     /// interface to implement for new specification
